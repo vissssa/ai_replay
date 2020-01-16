@@ -1,0 +1,13 @@
+sqlalchemy
+jieba
+paddlepaddle-tiny==1.6.1
+flask
+flask_sqlalchemy
+gensim
+click
+pymysql
+gunicorn
+mysqlclient
+pyyaml
+Flask-Migrate
+gevent

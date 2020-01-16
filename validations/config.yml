@@ -1,0 +1,15 @@
+qa_modify:
+  id:
+    type: int
+  question:
+    type: basestring
+    required: True
+  answer:
+    type: basestring
+  keywords:
+    type: list
+  returnvalue:
+    - id
+    - question
+    - answer
+    - keywords
