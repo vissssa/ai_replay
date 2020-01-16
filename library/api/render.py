@@ -73,9 +73,12 @@ def row2list(rows, exclude=None, func=None):
             rv = row.__dict__
         for k, v in rv.items():
             if isinstance(v, db.Model):
-                exclude.append(k)
+                if k not in exclude:
+                    exclude.append(k)
                 break
-        [rv.pop(ex) for ex in exclude]
+        for ex in exclude:
+            if ex in rv:
+                rv.pop(ex)
         data.append(rv)
         if func:
             func(rv)

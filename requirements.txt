@@ -11,3 +11,6 @@ mysqlclient
 pyyaml
 Flask-Migrate
 gevent
+wrapt
+celery
+redis

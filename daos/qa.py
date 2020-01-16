@@ -4,6 +4,7 @@ from library.api.db import db
 from library.api.exceptions import CannotFindObjectException
 from library.api.render import row2list
 from models.qa import Qa, qa_query
+from tasks.tasks import gen_nlp_keywords
 
 
 def keyword2list(data):
@@ -37,6 +38,7 @@ def create_qa(post_form):
     query = Qa(**post_form)
     with db.auto_commit():
         db.session.add(query)
+    gen_nlp_keywords.delay()
     return 0
 
 
@@ -45,15 +47,16 @@ def modify_qa(post_form):
     if not isinstance(post_form['id'], int):
         raise CannotFindObjectException
     post_form.pop('id')
-
     qa_row = Qa.query.get(qa_id)
     if not qa_row:
         raise CannotFindObjectException
 
+    post_form['keywords'] = ','.join(post_form['keywords'])
     # 每次修改后都置为未nlp状态
-    post_form['has_seg'] = 0
+    post_form['has_seg'] = Qa.NO_SEG
     with db.auto_commit():
         qa_row.query.filter_by(id=qa_id).update(post_form)
+    gen_nlp_keywords.delay()
     return 0
 
 
