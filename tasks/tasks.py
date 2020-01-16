@@ -1,3 +1,5 @@
+import time
+
 import jieba
 
 from library.api.db import db
@@ -16,6 +18,8 @@ def in_model(word):
 @celery.task(name='gen_nlp_keywords')
 @exception_handler
 def gen_nlp_keywords():
+    # 适当延迟，等待数据被改成has_seg=0
+    time.sleep(5)
     rows = qa_query().filter_by(has_seg=Qa.NO_SEG, status=Qa.ACTIVE)
     query_list = []
     for row in rows:
