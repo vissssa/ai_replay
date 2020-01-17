@@ -9,7 +9,7 @@ replay = Blueprint('replay', __name__)
 def get():
     """
     @api {get} /v1/replay/ 获取 智能回复
-    @apiName GetQa
+    @apiName GetReplay
     @apiGroup 智能回复
     @apiDescription 获取智能回复。前端根据热度排序
     @apiParam {str} s  问题
