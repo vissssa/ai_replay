@@ -20,15 +20,23 @@ def get_qa(page_size, page_index):
     count = query.count()
     if page_size and page_index:
         query = query.limit(int(page_size)).offset((int(page_index) - 1) * int(page_size))
-    data = row2list(query.all(), exclude=['status', 'has_seg'], func=keyword2list)
+    data = row2list(query.all(), exclude=['status', 'has_seg', 'hot'], func=keyword2list)
 
     return count, data
+
+
+def increase_hot(qa_id):
+    qa_row = Qa.query.get(qa_id)
+    qa_row.hot += 1
+    with db.auto_commit():
+        db.session.add(qa_row)
 
 
 def get_qa_by_id(qa_id):
     qa_row = qa_query().filter_by(id=qa_id).all()
     if qa_row:
-        return row2list(qa_row, exclude=['status', 'has_seg'], func=keyword2list)
+        increase_hot(qa_id)
+        return row2list(qa_row, exclude=['status', 'has_seg', 'hot'], func=keyword2list)
     else:
         raise CannotFindObjectException('未找到当前问答')
 

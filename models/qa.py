@@ -23,6 +23,7 @@ class Qa(EntityModel):
     nlp_keywords = db.Column(db.String(200))  # nlp猜测的相关关键词
     status = db.Column(db.Integer, default=ACTIVE)  # 状态
     has_seg = db.Column(db.Integer, default=NO_SEG)  # 切分状态
+    hot = db.Column(db.Integer, default=0)  # 热度。随着被点击增大
 
 
 def qa_query():
@@ -33,7 +34,8 @@ def qa_query():
         Qa.keywords,
         Qa.nlp_keywords,
         Qa.status,
-        Qa.has_seg
+        Qa.has_seg,
+        Qa.hot
     )
 # class KeyWords(EntityModel):
 #     pass

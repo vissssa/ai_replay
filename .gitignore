@@ -152,3 +152,4 @@ qa_list.py
 run.py
 foo.py
 apidoc/
+celerybeat-schedule.db
