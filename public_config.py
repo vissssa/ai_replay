@@ -1,3 +1,20 @@
+SQLALCHEMY_DATABASE_URI = ''
+
+TCLOUD_ENV = 'dev'
+SERVER_ENV = 'dev'
+
+REDIS_HOST = ''
+REDIS_PORT = 6379
+REDIS_PASSWORD = ''
+REDIS_DB = 0
+
+CELERY_RESULT_BACKEND = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/1'
+CELERY_BROKER_URL = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/2'
+
+SECRET = ''
+ALGORITHM = 'HS256'
+SALT = ""
+
 try:
     from local_config import *
 except ImportError:

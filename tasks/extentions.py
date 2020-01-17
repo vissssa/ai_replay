@@ -16,7 +16,7 @@ from gensim.models import KeyedVectors
 #     tc_model = None
 #     USELESS = None
 jieba.enable_paddle()
-model_file = '/Users/spaceship/Documents/Tencent_AILab_ChineseEmbedding_Min.txt'
+model_file = 'Tencent_AILab_ChineseEmbedding_Min.txt'
 tc_model = KeyedVectors.load_word2vec_format(model_file, binary=False)
 with open('stopword.txt', 'r') as f:
     USELESS = f.read().split('\n')
